@@ -1,7 +1,7 @@
 /*
   ┌─────────────────────────────────────────────────────────────────────────┐
   │ Rafael S.R.                                                             │
-  │ v0.0.1                                                                  │
+  │ v0.0.2                                                                  │
   │                                                                         │
   │ Proprietary and closed.                                                 │
   │ © All rights reserved.                                                  │
@@ -25,7 +25,7 @@ const srcDir = path.join(__dirname, "../src");
 const comment = `/*
   ┌─────────────────────────────────────────────────────────────────────────┐
   │ Rafael S.R.                                                             │
-  │ v0.0.1                                                                  │
+  │ v0.0.2                                                                  │
   │                                                                         │
   │ Proprietary and closed.                                                 │
   │ © All rights reserved.                                                  │

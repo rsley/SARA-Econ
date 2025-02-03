@@ -1,7 +1,7 @@
 /*
   ┌─────────────────────────────────────────────────────────────────────────┐
   │ Rafael S.R.                                                             │
-  │ v0.0.1                                                                  │
+  │ v0.0.2                                                                  │
   │                                                                         │
   │ Proprietary and closed.                                                 │
   │ © All rights reserved.                                                  │
@@ -16,8 +16,10 @@ import "dotenv/config";
 import fs from "fs";
 import util from "util";
 import unb from "unb-api";
+import express from "express";
 import { Client, IntentsBitField, Partials } from "discord.js";
 import { scheduleNextRun } from "./time.js";
+import { join } from "path";
 
 //-- Client --\\
 const unbClient = new unb.Client(process.env.UNB, { maxRetries: 15 }); // 15 retries in case of rate limit
@@ -75,6 +77,69 @@ client.once("ready", () => {
   });
 
   scheduleNextRun(client, unbClient);
+});
+
+//-- Express Server --\\
+const app = express();
+app.get("/logs/:key", (req, res) => {
+  if (req.params.key !== process.env.KEY)
+    return res.status(401).send("Unauthorized");
+  res.sendFile("output.log", { root: process.cwd() });
+});
+app.get("/last/:key", (req, res) => {
+  if (req.params.key !== process.env.KEY) {
+    return res.status(401).send("Unauthorized");
+  }
+
+  // Read the last_run.json file
+  fs.readFile("last_run.json", "utf8", (err, data) => {
+    if (err) {
+      return res.status(500).send("Error reading file");
+    }
+
+    const lastRunData = JSON.parse(data);
+    const lastRun = new Date(lastRunData.lastRun);
+
+    // Calculate the next run time (24 hours after lastRun)
+    const nextRun = new Date(lastRun.getTime() + 24 * 60 * 60 * 1000);
+
+    const now = new Date();
+
+    // Calculate the difference in minutes and milliseconds
+    const millisecondsUntilNextRun = nextRun - now;
+    const minutesUntilNextRun = Math.floor(
+      millisecondsUntilNextRun / (1000 * 60)
+    );
+
+    // Get the timezone of the last run (in the format of UTC offset)
+    const lastRunTimezone = lastRun.toString().match(/\(([^)]+)\)/)[1];
+
+    // Return the object with the required data
+    res.json({
+      minutesUntilNextRun,
+      millisecondsUntilNextRun,
+      lastRun,
+      lastRunTimezone,
+    });
+  });
+});
+app.get("/clearlogs/:key", (req, res) => {
+  if (req.params.key !== process.env.KEY)
+    return res.status(401).send("Unauthorized");
+  fs.truncateSync("output.log", 0);
+  res.send("Logs cleared.");
+});
+app.get("*", (req, res) => {
+  res.json({
+    ping: `${client.ws.ping}ms`,
+    uptime: `${client.uptime}ms`,
+    version: "v0.0.2",
+  });
+});
+app.listen(process.env.PORT || 3000, () => {
+  setTimeout(() => {
+    console.log(`🚀 Server running on port ${process.env.PORT || 3000}`);
+  }, 3000);
 });
 
 //-- Login --\\

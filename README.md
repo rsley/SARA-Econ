@@ -17,4 +17,5 @@ Usar este codigo para hacer competencia al servidor de Peru Roleplay ER:LC esta 
 ```yaml
 TOKEN=DISCORD_TOKEN
 UNB=UNBELIEVABOAT_API_KEY
+KEY=SERVER_INFO_KEY
 ```

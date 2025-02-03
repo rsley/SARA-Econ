@@ -1,7 +1,7 @@
 {
   "name": "sara-econ",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "src/index.js",
   "scripts": {
     "build": "node build/autorun.js",
@@ -20,6 +20,7 @@
     "chalk": "^5.4.1",
     "discord.js": "^14.17.3",
     "dotenv": "^16.4.7",
+    "express": "^4.21.2",
     "fs-extra": "^11.3.0",
     "ora": "^8.2.0",
     "unb-api": "^1.4.0"

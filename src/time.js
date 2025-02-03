@@ -1,7 +1,7 @@
 /*
   ┌─────────────────────────────────────────────────────────────────────────┐
   │ Rafael S.R.                                                             │
-  │ v0.0.1                                                                  │
+  │ v0.0.2                                                                  │
   │                                                                         │
   │ Proprietary and closed.                                                 │
   │ © All rights reserved.                                                  │
@@ -56,7 +56,7 @@ function executeTask(client, unb) {
       members.forEach(async (member) => {
         const roles = member._roles;
         //if (member.user.id !== "1261719316747911211") return; // test mode
-        // return;
+        //return;
 
         let sueldo = 0;
         let impuestos = 0;
