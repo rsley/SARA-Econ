@@ -12,14 +12,13 @@
  */
 
 //-- Imports --\\
-import "dotenv/config";
-import fs from "fs";
-import util from "util";
-import unb from "unb-api";
-import express from "express";
-import { Client, IntentsBitField, Partials } from "discord.js";
-import { scheduleNextRun } from "./time.js";
-import { join } from "path";
+require("dotenv").config();
+const fs = require("fs");
+const util = require("util");
+const unb = require("unb-api");
+const express = require("express");
+const { Client, IntentsBitField, Partials } = require("discord.js");
+const { scheduleNextRun } = require("./time.js");
 
 //-- Client --\\
 const unbClient = new unb.Client(process.env.UNB, { maxRetries: 15 }); // 15 retries in case of rate limit

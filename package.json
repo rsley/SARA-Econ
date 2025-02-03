@@ -1,6 +1,5 @@
 {
   "name": "sara-econ",
-  "type": "module",
   "version": "0.0.2",
   "main": "src/index.js",
   "scripts": {

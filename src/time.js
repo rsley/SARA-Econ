@@ -17,8 +17,8 @@
 
  */
 
-import fs from "fs";
-import path from "path";
+const fs = require("fs");
+const path = require("path");
 
 const FILE = path.join("last_run.json");
 const INTERVAL = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
@@ -55,7 +55,7 @@ function executeTask(client, unb) {
       console.log(`👥 Ready for ${members.size} members`);
       members.forEach(async (member) => {
         const roles = member._roles;
-        //if (member.user.id !== "1261719316747911211") return; // test mode
+        if (member.user.id !== "1261719316747911211") return; // test mode
         //return;
 
         let sueldo = 0;
@@ -192,7 +192,7 @@ function executeTask(client, unb) {
   setLastRunTime();
 }
 
-export function scheduleNextRun(client, unb) {
+module.exports.scheduleNextRun = (client, unb) => {
   const lastRun = getLastRunTime();
   const now = Date.now();
 
@@ -214,4 +214,4 @@ export function scheduleNextRun(client, unb) {
       executeTask(client, unb);
     }, INTERVAL);
   }
-}
+};
