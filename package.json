@@ -1,0 +1,27 @@
+{
+  "name": "sara-econ",
+  "version": "0.0.2",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "node build/autorun.js",
+    "start": "node src/index.js",
+    "dev": "nodemon --exec \"node build/autorun.js && node src/index.js\" --delay 2 --ext js",
+    "prepublish": "yarn build"
+  },
+  "repository": "https://github.com/rsley/SARA-Econ",
+  "author": "Rafael S. <110256307+rsley@users.noreply.github.com>",
+  "license": "SEE LICENSE IN LICENSE",
+  "private": false,
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "discord.js": "^14.17.3",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "fs-extra": "^11.3.0",
+    "ora": "^8.2.0",
+    "unb-api": "^1.4.0"
+  }
+}
